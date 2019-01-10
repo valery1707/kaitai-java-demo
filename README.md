@@ -4,3 +4,4 @@ Demo java project with [Kaitai](http://kaitai.io/) included into project build p
 
 Projects:
 * [Maven: simple project](/maven-simple)
+* [Gradle: simple project](/gradle-simple)
