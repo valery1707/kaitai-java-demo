@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/kaitai-java-demo
+
+    docker:
+      - image: circleci/openjdk:8u171-jdk-stretch # https://hub.docker.com/r/circleci/openjdk/tags
+        # Downgraded https://stackoverflow.com/a/53016532
+
+    steps:
+      - checkout
+
+      - run:
+          name: Prepare cache key
+          command: |
+            find . \( -name 'pom.xml' -or -name 'build.gradle*' \) -print0 | sort -z | xargs -0 md5sum > tmp-cache.key
+            cat tmp-cache.key
+
+      - restore_cache: # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: kaitai-java-demo-{{ checksum "tmp-cache.key" }}
+
+      - run:
+          name: Build subprojects
+          command: |
+            ./ci_build.sh
+
+      - save_cache: # saves the project dependencies
+          paths:
+            - ~/.m2
+            - ~/.gradle
+          key: kaitai-java-demo-{{ checksum "tmp-cache.key" }}
+
+      - run:
+          name: Clean cache key
+          command: |
+            rm -v tmp-cache.key
