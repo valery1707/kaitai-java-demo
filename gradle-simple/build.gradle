@@ -3,7 +3,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath("name.valery1707.kaitai:kaitai-gradle-plugin:0.1.0")
+		classpath("name.valery1707.kaitai:kaitai-gradle-plugin:0.1.1")
 	}
 }
 
@@ -23,4 +23,10 @@ dependencies {
 
 kaitai {
 	packageName = 'name.valery1707.kaitai.demo'
+}
+
+test {
+	testLogging {
+		events("passed", "skipped", "failed")
+	}
 }

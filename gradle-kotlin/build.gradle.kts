@@ -1,7 +1,7 @@
 plugins {
 	java
 	id("nebula.kotlin") version "1.3.11"
-	id("name.valery1707.kaitai") version "0.1.0"
+	id("name.valery1707.kaitai") version "0.1.1"
 }
 
 repositories {
@@ -24,8 +24,7 @@ configure<JavaPluginConvention> {
 	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-//todo Use more useful name
-configure<name.valery1707.kaitai.GenerateConfig> {
+configure<name.valery1707.kaitai.KaitaiExtension> {
 	packageName = "name.valery1707.kaitai.demo"
 }
 
